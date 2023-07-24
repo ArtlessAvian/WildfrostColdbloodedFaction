@@ -34,69 +34,78 @@ public class WildfrostReptileFaction : BasePlugin
                 )
                 // Flavor
                 .SetTitle("Gates")
-                .SetSprites(LoadSprite("assets/gates/sketch1690152179600.png"), LoadSprite("assets/gates/white.png"))
+                .SetSprites(LoadSprite("assets/gates/sketch1690163284004.png"), LoadSprite("assets/gates/white.png"))
+                // Metagame
+                .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
+                .RegisterCardInApi();
+        };
+
+        // Commented because not fun, needs work.
+        CardAdder.OnAskForAddingCards += (int i) =>
+        {
+            Log.LogInfo("Adding Reggie");
+            CardData cardData = CardAdder.CreateCardData("ReptileFaction", "Reggie")
+                .SetIsUnit()
+                .SetStats(5, 6, 2)
+                .SetCanPlay(CardAdder.CanPlay.CanPlayOnBoard)
+                .SetStartWithEffects(
+                    CardAdder.VanillaStatusEffects.Snow.StatusEffectStack(3)
+                    )
+                // Flavor
+                .SetTitle("Reggie")
+                .SetText("Start with 3 <keyword=snow>.")
+                .SetSprites(LoadSprite("assets/gates/sketch1690163284004.png"), LoadSprite("assets/gates/white.png"))
                 // Metagame
                 // .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
                 .RegisterCardInApi();
         };
 
-        // // Commented because broken. Also not fun. (Teeth still hits when snowed. Smackback does not.)
-        // // Intended for Gates.
-        // StatusEffectAdder.OnAskForAddingStatusEffects += (int i) =>
-        // {
-        //     Log.LogInfo("Adding WhenSnowAppliedToSelfGainTeeth");
-        //     whenSnowAppliedToSelfGainTeeth =
-        //     StatusEffectAdder.CreateStatusEffectData<StatusEffectApplyXWhenYAppliedToSelf>("ReptileFaction", "WhenSnowAppliedToSelfGainTeeth")
-        //         .SetText("When <keyword=snow>'d, gain equal <keyword=teeth>")
-        //         .ModifyFields(
-        //             (StatusEffectApplyXWhenYAppliedToSelf effect) =>
-        //             {
-        //                 effect.effectToApply = CardAdder.VanillaStatusEffects.Teeth.StatusEffectData();
-        //                 effect.whenAppliedType = "Snow";
-        //                 return effect;
-        //             })
-        //         .RegisterStatusEffectInApi();
-        // };
+        CardAdder.OnAskForAddingCards += (int i) =>
+        {
+            Log.LogInfo("Adding Scorpy");
+            CardData cardData = CardAdder.CreateCardData("ReptileFaction", "Scorpy")
+                .SetIsUnit()
+                .SetStats(6, 2, 3)
+                .SetCanPlay(CardAdder.CanPlay.CanPlayOnBoard)
+                .SetStartWithEffects(
+                    CardAdder.VanillaStatusEffects.HitFurthestTarget.StatusEffectStack(1),
+                    CardAdder.VanillaStatusEffects.MultiHit.StatusEffectStack(1)
+                )
+                .SetAttackEffects(
+                    CardAdder.VanillaStatusEffects.Pull.StatusEffectStack(1)
+                )
+                // Flavor
+                .SetTitle("Scorpy")
+                .SetText("Longshot\nYank")
+                .SetSprites(LoadSprite("assets/gates/sketch1690163284004.png"), LoadSprite("assets/gates/white.png"))
+                // Metagame
+                // .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
+                .RegisterCardInApi();
+        };
 
-        // // Commented because not fun, needs work.
-        // CardAdder.OnAskForAddingCards += (int i) =>
-        // {
-        //     Log.LogInfo("Adding Reggie");
-        //     CardData cardData = CardAdder.CreateCardData("ReptileFaction", "Reggie")
-        //         .SetIsUnit()
-        //         .SetStats(4, 5, 2)
-        //         .SetCanPlay(CardAdder.CanPlay.CanPlayOnBoard)
-        //         .SetStartWithEffects(
-        //             CardAdder.VanillaStatusEffects.Snow.StatusEffectStack(3)
-        //             )
-        //         // Flavor
-        //         .SetTitle("Reggie")
-        //         .SetText("Start with 3 <keyword=snow>.")
-        //         // Metagame
-        //         .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
-        //         .RegisterCardInApi();
-        // };
+        CardAdder.OnAskForAddingCards += (int i) =>
+        {
+            Log.LogInfo("Adding Colbo");
 
-        // CardAdder.OnAskForAddingCards += (int i) =>
-        // {
-        //     Log.LogInfo("Adding Scorpy");
-        //     CardData cardData = CardAdder.CreateCardData("ReptileFaction", "Scorpy")
-        //         .SetIsUnit()
-        //         .SetStats(6, 4, 2)
-        //         .SetCanPlay(CardAdder.CanPlay.CanPlayOnBoard)
-        //         .SetStartWithEffects(
-        //             CardAdder.VanillaStatusEffects.HitFurthestTarget.StatusEffectStack(1)
-        //         )
-        //         .SetAttackEffects(
-        //             CardAdder.VanillaStatusEffects.Pull.StatusEffectStack(1)
-        //         )
-        //         // Flavor
-        //         .SetTitle("Scorpy")
-        //         .SetText("Yank\nLongshot")
-        //         // Metagame
-        //         .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
-        //         .RegisterCardInApi();
-        // };
+            CardData cardData = CardAdder.CreateCardData("ReptileFaction", "Colbo")
+                .SetIsUnit()
+                .SetStats(1, 1, 2)
+                .SetCanPlay(CardAdder.CanPlay.CanPlayOnBoard)
+                // TODO: On hit gain gold. Or ink or status or idk.
+                // CardAdder.VanillaStatusEffects.GainGold.StatusEffectStack(2)
+                .SetStartWithEffects(
+                    CardAdder.VanillaStatusEffects.HitFurthestTarget.StatusEffectStack(1),
+                    // Backline(?) behaves poorly. It doesn't force backline but disallows moving anywhere except.
+                    CardAdder.VanillaStatusEffects.LowPriorityPosition.StatusEffectStack(1)
+                )
+                // Flavor
+                .SetTitle("Colbo")
+                .SetText("Longshot\nBackline")
+                .SetSprites(LoadSprite("assets/gates/sketch1690163284004.png"), LoadSprite("assets/gates/white.png"))
+                // Metagame
+                // .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
+                .RegisterCardInApi();
+        };
     }
 
     private static Sprite LoadSprite(string path)
