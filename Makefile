@@ -15,6 +15,12 @@ copy-lib-from-bepinex:
 	cp -uv 'C:/Users/artle/AppData/Roaming/r2modmanPlus-local/Wildfrost/profiles/Default/BepInEx/interop/assembly-hash.txt' \
 		lib/assembly-hash.txt
 
+copy-lib-from-miya:
+	# just steal it from the mod manager.
+	# alternatively, build from head?
+	cp -uv 'C:/Users/artle/AppData/Roaming/r2modmanPlus-local/Wildfrost/profiles/Default/BepInEx/plugins/Kopie-WildFrost_API/WildfrostModMiya.dll' \
+		lib/WildfrostModMiya.dll
+
 clean:
 	dotnet clean
 
