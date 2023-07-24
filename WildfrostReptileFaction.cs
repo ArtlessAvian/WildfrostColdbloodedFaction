@@ -29,8 +29,11 @@ public class WildfrostReptileFaction : BasePlugin
                 .SetStats(12, 1, 0)
                 .SetCanPlay(CardAdder.CanPlay.CanPlayOnBoard)
                 .SetStartWithEffects(
-                    CardAdder.VanillaStatusEffects.WhenHitTriggerToSelf.StatusEffectStack(1),
+                    // CardAdder.VanillaStatusEffects.WhenHitTriggerToSelf.StatusEffectStack(1),
                     CardAdder.VanillaStatusEffects.WhenSnowAppliedToSelfGainEqualAttack.StatusEffectStack(1)
+                )
+                .SetTraits(
+                    CardAdder.VanillaTraits.Smackback.TraitStack(1)
                 )
                 // Flavor
                 .SetTitle("Gates")
@@ -50,7 +53,7 @@ public class WildfrostReptileFaction : BasePlugin
                 .SetCanPlay(CardAdder.CanPlay.CanPlayOnBoard)
                 .SetStartWithEffects(
                     CardAdder.VanillaStatusEffects.Snow.StatusEffectStack(3)
-                    )
+                )
                 // Flavor
                 .SetTitle("Reggie")
                 .SetText("Start with 3 <keyword=snow>.")
@@ -65,18 +68,14 @@ public class WildfrostReptileFaction : BasePlugin
             Log.LogInfo("Adding Scorpy");
             CardData cardData = CardAdder.CreateCardData("ReptileFaction", "Scorpy")
                 .SetIsUnit()
-                .SetStats(6, 2, 3)
+                .SetStats(9, 4, 3)
                 .SetCanPlay(CardAdder.CanPlay.CanPlayOnBoard)
-                .SetStartWithEffects(
-                    CardAdder.VanillaStatusEffects.HitFurthestTarget.StatusEffectStack(1),
-                    CardAdder.VanillaStatusEffects.MultiHit.StatusEffectStack(1)
-                )
-                .SetAttackEffects(
-                    CardAdder.VanillaStatusEffects.Pull.StatusEffectStack(1)
+                .SetTraits(
+                    CardAdder.VanillaTraits.Pull.TraitStack(1),
+                    CardAdder.VanillaTraits.Longshot.TraitStack(1)
                 )
                 // Flavor
                 .SetTitle("Scorpy")
-                .SetText("Longshot\nYank")
                 .SetSprites(LoadSprite("assets/gates/sketch1690163284004.png"), LoadSprite("assets/gates/white.png"))
                 // Metagame
                 // .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
@@ -92,15 +91,44 @@ public class WildfrostReptileFaction : BasePlugin
                 .SetStats(1, 1, 2)
                 .SetCanPlay(CardAdder.CanPlay.CanPlayOnBoard)
                 // TODO: On hit gain gold. Or ink or status or idk.
-                // CardAdder.VanillaStatusEffects.GainGold.StatusEffectStack(2)
-                .SetStartWithEffects(
-                    CardAdder.VanillaStatusEffects.HitFurthestTarget.StatusEffectStack(1),
-                    // Backline(?) behaves poorly. It doesn't force backline but disallows moving anywhere except.
-                    CardAdder.VanillaStatusEffects.LowPriorityPosition.StatusEffectStack(1)
+                .SetAttackEffects(
+                    CardAdder.VanillaStatusEffects.GainGold.StatusEffectStack(2)
+                )
+                .SetTraits(
+                    CardAdder.VanillaTraits.Longshot.TraitStack(1)
                 )
                 // Flavor
                 .SetTitle("Colbo")
-                .SetText("Longshot\nBackline")
+                .SetText("On hit, gain 2 bling") // TODO: Find and use bling keyword
+                .SetSprites(LoadSprite("assets/gates/sketch1690163284004.png"), LoadSprite("assets/gates/white.png"))
+                // Metagame
+                // .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
+                .RegisterCardInApi();
+        };
+
+        CardAdder.OnAskForAddingCards += (int i) =>
+        {
+            // Log.LogInfo("Adding RemoveSnow");
+            // StatusEffectAdder.CreateStatusEffectData<StatusEffectApplyXOnTurn>("ReptileFaction", "RemoveSnow")
+            //     .
+            Log.LogInfo("Adding HeatLamp");
+
+            CardData cardData = CardAdder.CreateCardData("ReptileFaction", "HeatLamp")
+                .SetIsUnit()
+                .SetStats(null, null, 2)
+                .SetCanPlay(CardAdder.CanPlay.CanPlayOnFriendly)
+                .SetStartWithEffects(
+                    CardAdder.VanillaStatusEffects.Scrap.StatusEffectStack(5),
+                    CardAdder.VanillaStatusEffects.ImmuneToSnow.StatusEffectStack(1),
+                    // TODO: Replace me
+                    CardAdder.VanillaStatusEffects.OnTurnHealAllies.StatusEffectStack(1)
+                )
+                .SetAttackEffects(
+                    CardAdder.VanillaStatusEffects.LoseScrap.StatusEffectStack(1)
+                )
+                // Flavor
+                .SetTitle("Heat Lamp")
+                // .SetText("Remove 1 <keyword=snow> from all units")
                 .SetSprites(LoadSprite("assets/gates/sketch1690163284004.png"), LoadSprite("assets/gates/white.png"))
                 // Metagame
                 // .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
