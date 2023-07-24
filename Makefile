@@ -6,8 +6,14 @@ all:
 	    C:/Users/artle/AppData/Roaming/r2modmanPlus-local/Wildfrost/profiles/Default/BepInEx/plugins/Unknown-WildfrostReptileFaction
 	echo "Done!"
 
-copy-lib-from-bepin:
-	echo TODO
+copy-lib-from-bepinex:
+	diff -qsN 'C:/Users/artle/AppData/Roaming/r2modmanPlus-local/Wildfrost/profiles/Default/BepInEx/interop/assembly-hash.txt' \
+		lib/assembly-hash.txt
+	find 'C:/Users/artle/AppData/Roaming/r2modmanPlus-local/Wildfrost/profiles/Default/BepInEx/interop' \
+		-name *.dll \
+		-exec cp -uv {} ./lib \;
+	cp -uv 'C:/Users/artle/AppData/Roaming/r2modmanPlus-local/Wildfrost/profiles/Default/BepInEx/interop/assembly-hash.txt' \
+		lib/assembly-hash.txt
 
 clean:
 	dotnet clean

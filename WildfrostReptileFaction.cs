@@ -8,10 +8,10 @@ namespace WildfrostReptileFaction;
 
 [BepInPlugin("Wildfrost.ArtlessAvian.ReptileFaction", "ReptileFaction", "0.1.0")]
 [BepInDependency("WildFrost.Miya.WildfrostAPI")]
-public class Plugin : BasePlugin
+public class WildfrostReptileFaction : BasePlugin
 {
     // Taken from library code.
-    public static readonly string PluginFolder = typeof(Plugin).Assembly.Location.Replace("WildfrostReptileFaction.dll", "");
+    public static readonly string PluginFolder = typeof(WildfrostReptileFaction).Assembly.Location.Replace("WildfrostReptileFaction.dll", "");
 
     // static StatusEffectData whenSnowAppliedToSelfGainTeeth;
 
