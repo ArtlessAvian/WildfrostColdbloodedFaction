@@ -1,5 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Unity.IL2CPP;
+using Il2CppSystem.IO;
+using UnityEngine;
 using WildfrostModMiya;
 
 namespace WildfrostReptileFaction;
@@ -8,11 +10,15 @@ namespace WildfrostReptileFaction;
 [BepInDependency("WildFrost.Miya.WildfrostAPI")]
 public class Plugin : BasePlugin
 {
+    // Taken from library code.
+    public static readonly string PluginFolder = typeof(Plugin).Assembly.Location.Replace("WildfrostReptileFaction.dll", "");
+
     // static StatusEffectData whenSnowAppliedToSelfGainTeeth;
 
     public override void Load()
     {
         Log.LogInfo("helllllooooo");
+        Log.LogInfo("loaded at " + PluginFolder);
 
         CardAdder.OnAskForAddingCards += (int i) =>
         {
@@ -28,6 +34,7 @@ public class Plugin : BasePlugin
                 )
                 // Flavor
                 .SetTitle("Gates")
+                .SetSprites(LoadSprite("assets/gates/sketch1690152179600.png"), LoadSprite("assets/gates/white.png"))
                 // Metagame
                 // .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
                 .RegisterCardInApi();
@@ -90,5 +97,12 @@ public class Plugin : BasePlugin
         //         .AddToPool(CardAdder.VanillaRewardPools.GeneralUnitPool)
         //         .RegisterCardInApi();
         // };
+    }
+
+    private static Sprite LoadSprite(string path)
+    {
+        Texture2D tex = new Texture2D(2, 2);
+        tex.LoadImage(File.ReadAllBytes(PluginFolder + path));
+        return tex.ToSprite();
     }
 }

@@ -6,6 +6,9 @@ all:
 	    C:/Users/artle/AppData/Roaming/r2modmanPlus-local/Wildfrost/profiles/Default/BepInEx/plugins/Unknown-WildfrostReptileFaction
 	echo "Done!"
 
+copy-lib-from-bepin:
+	echo TODO
+
 clean:
 	dotnet clean
 
